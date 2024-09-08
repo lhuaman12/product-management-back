@@ -1,38 +1,40 @@
 package com.lexartlabs.backendtest.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 @Table(name="product")
 public class Product {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String name;
     @Column
     private String brand;
     @Column
     private String model;
-    @Transient
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL)
     private List<Data> data;
 
     public Product() {
     }
 
-    public Product(String id, String brand, String model, List<Data> data) {
+    public Product(Long id, String name, String brand, String model, List<Data> data) {
         this.id = id;
+        this.name = name;
         this.brand = brand;
         this.model = model;
         this.data = data;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,5 +60,13 @@ public class Product {
 
     public void setData(List<Data> data) {
         this.data = data;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
