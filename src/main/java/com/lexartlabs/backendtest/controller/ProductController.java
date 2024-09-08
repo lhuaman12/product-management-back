@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @GetMapping("/:{productId}")
+    @GetMapping("/{productId}")
     ResponseEntity<GetProductByIdResponse> getProductsByName(@PathVariable("productId") String productId) {
         Product product = productService.getProductById(productId);
         List<ProductDataResponse> productDataResponse = new ArrayList<>();
