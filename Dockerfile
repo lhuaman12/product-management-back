@@ -1,5 +1,5 @@
 # Etapa 1: Construcción del JAR
-FROM maven:3.9.9-openjdk-17 AS builder
+FROM maven AS builder
 
 # Establece el directorio de trabajo
 WORKDIR /app
