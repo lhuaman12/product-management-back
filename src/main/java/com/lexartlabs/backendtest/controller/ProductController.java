@@ -31,14 +31,14 @@ public class ProductController {
 
     @CrossOrigin
     @GetMapping
-    ResponseEntity<String> getProducts(
+    ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String model,
             @RequestParam(required = false) Integer price,
-            @RequestParam(required = false) String color)
-            {
-        return new ResponseEntity<>("hola", HttpStatus.OK);
+            @RequestParam(required = false) String color) {
+        List<Product> products = productService.getAllProducts(name, brand, model);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @CrossOrigin

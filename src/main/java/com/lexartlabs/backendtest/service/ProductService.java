@@ -8,5 +8,6 @@ import java.util.List;
 public interface ProductService {
     Integer insertProducts(List<InsertProductsRequest> productsRequests);
     Product getProductById(String productId);
+    List<Product> getAllProducts(String name, String brand, String model);
 }
 

@@ -3,9 +3,10 @@ package com.lexartlabs.backendtest.service;
 import com.lexartlabs.backendtest.domain.Data;
 import com.lexartlabs.backendtest.domain.Product;
 import com.lexartlabs.backendtest.dto.request.InsertProductsRequest;
-import com.lexartlabs.backendtest.dto.response.InsertProductsRequestResponse;
 import com.lexartlabs.backendtest.repository.ProductRepository;
+import com.lexartlabs.backendtest.repository.ProductSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +29,16 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(String productId) {
         // TODO: tirar excepcion
         return productRepository.findById(Long.parseLong(productId)).orElse(null);
+    }
+
+    @Override
+    public List<Product> getAllProducts(String name, String brand, String model) {
+        Specification<Product> spec = Specification
+                .where(ProductSpecifications.hasName(name))
+                .and(ProductSpecifications.hasBrand(brand))
+                .and(ProductSpecifications.hasModel(model));
+
+        return productRepository.findAll(spec);
     }
 
     private List<Product> productsRequestToProducts(List<InsertProductsRequest> insertProductsRequest){
